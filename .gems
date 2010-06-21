@@ -1,3 +1,5 @@
 ramaze
+erubis
 sequel
 pg
+sqlite3-ruby
