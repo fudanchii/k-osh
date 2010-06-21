@@ -9,6 +9,10 @@ require 'ramaze'
 # Make sure that Ramaze knows where you are
 Ramaze.options.roots = [__DIR__]
 
+def load(mod)
+  require __DIR__(mod)
+end
+
 # Initialize controllers and models
-require __DIR__('model/init')
-require __DIR__('controller/init')
+load 'model/init'
+load 'controller/init'
