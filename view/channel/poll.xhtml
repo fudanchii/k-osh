@@ -1,0 +1,5 @@
+<?r unless @result.nil? ?>
+<?r @result.reverse.each do |r| ?>
+  <p> #{ "[" + r.nick + "] " + r.content } </p>
+<?r end ?>
+<?r end ?>

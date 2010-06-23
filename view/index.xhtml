@@ -1,7 +1,22 @@
 <div id="main">
   <div id="menu"></div>
   <div id="box">
-    <div id="chatlog"></div>
-    <div id="inputbox"</div>  
+  <div id="nickbox">
+       <form id="nickform" method="post">
+         <label for="nick">Nickname</label>
+         <input type="text" name="nick" id ="nick"/>
+         <input type="submit" value="set"/>
+       </form>
+  </div>
+    <div id="chatlog">
+    </div>
+    <div id="inputbox">
+       <form id="inputform">
+       <input type="hidden" name="user" id="user" value ="#{@user}">
+       <input type="hidden" name="channel" id="channel" value="#{@channel}">
+       <input #{@disabled} type="text" name="cmdtext" id="cmdtext"/>
+       <input type="submit" name="submit" id="submit" value="send"/>
+       </form>
+    </div>  
   </div>
 </div>

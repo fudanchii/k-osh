@@ -5,20 +5,56 @@
 
 h1 {
   text-align: center;
+  color: #fbfbfb;
 }
 
 body {
   margin: 2em;
-  background: #ccf;
+  background: #3a3a3a;
+  font-family: Helvetica, Arial, sans-serif;
 }
 
 #content {
+}
+
+#inputbox {
   margin: 1em;
-  background: #fff;
+  position: absolute;
+  top: 68px;
+  width: 90%;
+  background: #a3a3a3;
   padding: 1em;
-  -moz-border-radius: 3em;
-  -webkit-border-radius: 3em;
-  border-radius: 3em;
+  text-align: center;
+  -moz-border-radius: 8px;
+  -webkit-border-radius: 8px;
+  border-radius: 8px;
+}
+
+#chatlog {
+  padding: 0.8em;
+  width: 80%;
+  border: 1px solid #0A0A0A;
+  background: none repeat scroll 0 0 #fafafa;
+  position: absolute;
+  top: 150px;
+  left: 9%;
+}
+
+input#cmdtext {
+   -moz-border-radius: 4px 4px 4px 4px;
+   background: none repeat scroll 0 0 #ffffff;
+   border: 1px solid #AAAAAA
+   color: #333333;
+   font-size: 1.2em;
+   height: 20px;
+   line-height: 1px;
+   padding: 2px 4px;
+   width: 85%;
+}
+
+input#submit {
+  height: 29px;
+  width: 64px;    
 }
 
 p {

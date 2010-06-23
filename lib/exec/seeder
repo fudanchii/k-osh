@@ -1,0 +1,23 @@
+#!/usr/bin/env ruby
+
+exit if ARGV[0].nil?
+path = File.expand_path("seed")
+filename = ARGV[0].gsub /[\s]/, "_"
+prefix = `date +%Y%m%d%H%M%S`.strip
+filename = path + "/" + prefix + "_" + filename + ".rb"
+content = ""
+content << "Sequel.migration do
+  up do
+
+  end
+
+  down do
+
+  end
+end
+"
+File.open(filename, 'w') do |file|
+  file.write(content)
+end
+
+puts "Migration file '" + filename + "' created.\n"
