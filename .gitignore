@@ -1,2 +1,2 @@
-^spec
-^lib/exec
+spec/*
+lib/exec/*
