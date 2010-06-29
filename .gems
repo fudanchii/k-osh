@@ -3,3 +3,6 @@ erubis
 sequel
 pg
 sqlite3-ruby
+json
+eventmachine
+em-http-request
