@@ -30,6 +30,81 @@ body {
   border-radius: 8px;
 }
 
+.notif {
+  font-family: Courier;
+  font-color: gray;
+}
+
+.chat {
+  -moz-border-radius: 8px;
+  -webkit-border-radius: 8px;
+  border-radius: 8px;
+  margin-left: 10px;
+  margin-top: -3px;
+  background: none;
+  position: absolute;
+  left: 65px;
+  width: 90%;
+}
+
+.icon img{
+  width: 50px;
+  height: 50px;
+}
+
+#nickbox {
+ position: absolute;
+ margin-top: -25px;
+ margin-left: -25px;
+ background: #aaaaaa;
+ padding: 10px;
+ height: 42px;
+}
+
+ol#chat-container{
+padding: 5px;
+list-style-type: none;
+}
+
+ol#chat-container>li{
+padding: 3px;
+}
+
+ul.menu{
+  padding: 2px;
+  list-style-type: none;
+  font-size: 12px;
+  margin-top: 3px;
+  margin-left: 74px;    
+}
+
+ul.menu>li {
+  display: inline;
+}
+
+input#submitnick {
+  position: relative;
+  top: -44px;
+  width: 24px;
+  left: 212px;
+  font-size: 10px;
+  height: 17px;   
+}
+
+input#nick {
+  padding: 0 5px;
+  width: 150px;
+  height: 17px;
+}
+
+#nickform input {
+   -moz-border-radius: 10px 10px 10px 10px;
+   -webkit-border-radius: 10px;
+   border-radius: 10px;
+   border: 1px;
+   margin: -5px 0 0 5px;
+}
+
 #chatlog {
   padding: 0.8em;
   width: 80%;
@@ -42,10 +117,12 @@ body {
 
 input#cmdtext {
    -moz-border-radius: 4px 4px 4px 4px;
+   -webkit-border-radius: 4px;
+   border-radius: 4px;
    background: none repeat scroll 0 0 #ffffff;
    border: 1px solid #AAAAAA
    color: #333333;
-   font-size: 1.2em;
+   font-size: 1em;
    height: 20px;
    line-height: 1px;
    padding: 2px 4px;
@@ -61,6 +138,6 @@ p {
   margin: 1em;
 }
 
-ul, ol {
+ul {
   margin-left: 3em;
 }

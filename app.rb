@@ -5,13 +5,13 @@
 
 require 'rubygems'
 require 'ramaze'
+require 'json'
 
 # Make sure that Ramaze knows where you are
 Ramaze.options.roots = [__DIR__]
 
 ##Routing section
-Ramaze::Route["/poll"] = "/channel/poll"
-Ramaze::Route[%r!^/talkto/(.*)!] = "/channel/talkto/%s"
+Ramaze::Route[%r!^/(talk|poll)$!] = "/channel/%s"
 ##
 
 def req(mod)

@@ -5,10 +5,17 @@ module KaruiOshaberi
     helper :xhtml
     engine :Etanni
 
+    @user = nil;
+    @channel = nil;
+
     private
 
     def channel_exists?(chan)
       Channel[:name => chan]
+    end
+
+    def nick_available?(nick)
+      User[:nick => nick]
     end
 
   end
