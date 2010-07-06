@@ -1,7 +1,6 @@
-# This file contains your application, it requires dependencies and necessary
-# parts of the application.
-#
-# It will be required from either `config.ru` or `start.rb`
+# Our bootstrap, start up the app
+# 
+#  Copyright 2010 Nurahmadie <nurahmadie@gmail.com>
 
 require 'rubygems'
 require 'ramaze'
@@ -14,6 +13,7 @@ Ramaze.options.roots = [__DIR__]
 Ramaze::Route[%r!^/(talk|poll)$!] = "/channel/%s"
 ##
 
+# Define our require method to make things easier
 def req(mod)
   require __DIR__(mod)
 end

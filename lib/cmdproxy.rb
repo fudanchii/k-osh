@@ -6,20 +6,18 @@ module KaruiOshaberi
     def delegate(meth, params)
       return unless method_exists? meth
       lp = @instance.method(meth).arity
-      if params.length < lp
-        return
-      end
+      return if params.length < lp
       p = ""
       lp.times do |i|
         p << " params[#{i}]"
         p << "," if i < lp - 1
       end
-      instance_eval("@instance.#{meth}#{p}")
+      eval("@instance.#{meth.to_s}#{p}")
     end
 
-    def initialize(pkg)
-      chan = Channel[:name => pkg[:channel]]
-      @attr = pkg
+    def initialize
+      cid = User[:nick => Ramaze::Current.session[:credential][:user]].channel_id
+      chan = Channel[cid]
       @klasses = chan.features
     end
     
@@ -27,7 +25,7 @@ module KaruiOshaberi
     def method_exists?(meth)
       exists = false
       @klasses.each do |klass|
-         @instance = KaruiOshaberi::const_get(klass.name).new(@attr)
+         @instance = KaruiOshaberi::const_get(klass.name).new
          exists = @instance.respond_to? meth
          break if exists
       end

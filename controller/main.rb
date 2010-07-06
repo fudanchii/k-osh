@@ -3,7 +3,7 @@ module KaruiOshaberi
     map '/'
     layout :default
 
-    before_all {@inside_index = false}
+    before_all { @inside_index = false }
 
     def index
       @inside_index = true
@@ -11,10 +11,10 @@ module KaruiOshaberi
       @disabled = ""
       @nickform = a 'logout', r(:logout)
       if request.post? and !request[:nick].nil?
-        unless nick_available? request[:nick]
+        unless has_login? request[:nick]
           login
         else
-          @errmsg = "nickname already taken"
+          flash[:error] = "nickname already taken"
         end
       end
       if session[:credential].nil?
@@ -22,12 +22,16 @@ module KaruiOshaberi
         @nickform = render_view :login
       end
     end
-    
+
     def login
       redirect '/' unless @inside_index
-      user = User.create(:nick => request[:nick])
+      user = User[:nick => request[:nick]]
+      if user.nil?
+        user = User.create(:nick => request[:nick])
+      end
       channel = Channel[:name => "Main"]
       channel.add_user(user)
+      inotify(channel, "all", "#{user.nick} has joined Main channel, #{channel.users.length} user(s) online.")
       icon = user.getIcon(request[:service])
       user.icon = icon
       user.save
@@ -36,7 +40,11 @@ module KaruiOshaberi
 
     def logout
       redirect '/' if session[:credential].nil?
-      session[:credential] = nil
+      user = User[:nick => session[:credential][:user]]
+      channel = Channel[user.channel_id]
+      channel.remove_user(user)
+      inotify(channel, "all", "#{user.nick} has left, #{channel.users.length} user(s) online.")
+      session.clear
       redirect '/'
     end
 

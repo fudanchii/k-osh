@@ -13,7 +13,7 @@ module KaruiOshaberi
       @service.username(u)
     end
 
-    def icon()
+    def icon
       @service.getIcon
     end
 

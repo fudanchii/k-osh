@@ -6,16 +6,22 @@ module KaruiOshaberi
 
     def to_json(*o)
       user = User[user_id]
+      if user.nil?
+        nick = "none"
+        icon = "none"
+      else
+        nick = user.nick
+        icon = user.icon
+      end
       {
         :content => 
         {
            :ct => ct,
-           :user => user.nick,
-           :icon => user.icon,
+           :user => nick,
+           :icon => icon,
            :context => context,
            :time_stamp => time_stamp
-        },
-        :f => "function(data){ proc_#{context}(data); }"
+        }
       }.to_json(*o)
     end
   end

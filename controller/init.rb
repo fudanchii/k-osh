@@ -5,18 +5,25 @@ module KaruiOshaberi
     helper :xhtml
     engine :Etanni
 
-    @user = nil;
-    @channel = nil;
-
     private
+
+    def inotify(channel, target, message)
+      d = Dialogue.create(:context => "notification", :target => target, :ct => message, :time_stamp => Time.now)
+      channel.add_dialogue(d)
+    end
 
     def channel_exists?(chan)
       Channel[:name => chan]
     end
 
-    def nick_available?(nick)
-      User[:nick => nick]
+    def has_login?(nick)
+      user = User[:nick => nick]
+      unless user.nil?
+        return user.channel_id
+      end
     end
+
+    
 
   end
 end
