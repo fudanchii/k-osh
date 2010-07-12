@@ -1,14 +1,12 @@
 module KaruiOshaberi
-  class None
+  class None < Service
 
-    def initialize
-      @icon = "/icon/default.png"
-    end
-
-    def username(u)
+    def auth
+      "ok"
     end
 
     def getIcon
+      @icon = "/icon/default.png"
       @icon
     end
   end

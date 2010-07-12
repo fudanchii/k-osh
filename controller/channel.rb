@@ -65,10 +65,10 @@ module KaruiOshaberi
       user = User[:nick => session[:credential][:user]]
       token = /^\.([a-zA-Z]+)$/.match(request[:cmdtext])
       if token.nil?
-        token = /^\.([a-zA-Z]+) +(\w+)$/.match(request[:cmdtext])
+        token = /^\.([a-zA-Z]+) +(.+)$/.match(request[:cmdtext])
       end
       if token.nil?
-        token = /^\.([a-zA-Z]+) +(\w+) +(.+)$/.match(request[:cmdtext])
+        token = /^\.([a-zA-Z]+) +(.+) +(.+)$/.match(request[:cmdtext])
       end 
       if token.nil?
         di = Dialogue.create(:ct => request[:cmdtext], :time_stamp => Time.now)

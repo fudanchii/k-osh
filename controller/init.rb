@@ -5,6 +5,9 @@ module KaruiOshaberi
     helper :xhtml
     engine :Etanni
 
+    def not_found
+    end
+
     private
 
     def inotify(channel, target, message)
@@ -23,7 +26,9 @@ module KaruiOshaberi
       end
     end
 
-    
+    def self.action_missing(path)
+      try_resolve '/not_found'
+    end
 
   end
 end

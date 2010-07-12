@@ -1,16 +1,34 @@
+require 'net/https'
+
 module KaruiOshaberi
-  class Plurk
+  class Plurk < Service
     
     @@api_key = "RxeV3pAOSRW9X77OEjMXbf5CCUmiOmK4";
-    @@url = "http://www.plurk.com/API"
+    @@url = "www.plurk.com/API"
     @@icon_url = "http://avatars.plurk.com"
     
-    def initialize
-      @icon = "/icon/default.png"
-    end
+    def auth
+      result = nil
+      furl = http(@@url, true)+ "/Users/login" + 
+      "?api_key=#{@@api_key}&username=#{@username}&password=#{@password}&no_data=1"
 
-    def username(name)
-      @username = name
+#      uri = URI.parse("https://www.plurk.com")
+#      req = Net::HTTP.new(uri.host, uri.port)
+#      req.use_ssl = true
+#      req.verify_mode = OpenSSL::SSL::VERIFY_NONE
+#      response = req.get(furl)
+#      result = response.body if response == Net::HTTPOK
+
+      request = EventMachine::HttpRequest.new(furl).get
+      Ramaze::Current.session["login_status"] = "wait"
+      request.errback { Ramaze::Current.session["login_status"] = "error"}
+      request.callback {
+        unless request.response_header.status >= 400
+          Ramaze::Current.session["login_status"] = "ok"
+        else
+          Ramaze::Current.session["login_status"] = "error"
+        end
+      }
     end
 
     def getIcon
@@ -20,7 +38,8 @@ module KaruiOshaberi
 
     private
     def setIcon
-      furl = @@url + "/Profile/getPublicProfile?api_key=#{@@api_key}&user_id=#{@username}"
+      furl = http(@@url) + "/Profile/getPublicProfile"+
+      "?api_key=#{@@api_key}&user_id=#{@username}"
       request = EventMachine::HttpRequest.new(furl).get
       request.callback {
         data = JSON.parse request.response
@@ -29,7 +48,7 @@ module KaruiOshaberi
           uid = data["user_info"]["uid"]
           avatar = data["user_info"]["avatar"]
           if has_profile_image
-            if avatar.nil?
+            if avatar.nil? or avatar == "0"
               @icon = @@icon_url + "/#{uid}-medium.gif"
             else
               @icon = @@icon_url + "/#{uid}-medium#{avatar}.gif"

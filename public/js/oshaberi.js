@@ -3,7 +3,7 @@ $(function () {
 var intervalId = setInterval(function(){}, 10000);
 
 function render_notification(data) {
-    cont = $("<li></li>");
+    cont = $("<div></div>").addClass('ch-container');
     msg = $("<span></span>").addClass('notif');
     msg.text(data.ct);
     msg.appendTo(cont);
@@ -11,7 +11,7 @@ function render_notification(data) {
 }
 
 function render_chat(data) {
-    cont = $("<li></li>")
+    cont = $("<div></div>").addClass('ch-container');
     icon = $("<span></span>").addClass('icon');
     icon.html('<img src="'+data.icon+'"/>');
     icon.appendTo(cont);
@@ -24,6 +24,7 @@ function render_chat(data) {
 
 function process(data) {
     d = jQuery.parseJSON(data);
+    if (d == null) return;
     var i = 0;
     for (i; i < d.length; i++) {
         if (d[i].content.context == "chat") {

@@ -12,7 +12,9 @@ module KaruiOshaberi
       @nickform = a 'logout', r(:logout)
       if request.post? and !request[:nick].nil?
         unless has_login? request[:nick]
-          login
+          unless login
+            flash[:error] = "can not login"
+          end
         else
           flash[:error] = "nickname already taken"
         end
@@ -25,17 +27,15 @@ module KaruiOshaberi
 
     def login
       redirect '/' unless @inside_index
-      user = User[:nick => request[:nick]]
-      if user.nil?
-        user = User.create(:nick => request[:nick])
+      user = User.auth(request[:nick], request[:passwd], request[:service])
+      unless user.nil?
+        channel = Channel[:name => "Main"]
+        channel.add_user(user)
+        msg = "#{user.nick} has joined Main channel, #{channel.users.length} user(s) online."
+        inotify(channel, "all", msg)
+        session[:credential] = { :user => user.nick, :icon => user.icon }
       end
-      channel = Channel[:name => "Main"]
-      channel.add_user(user)
-      inotify(channel, "all", "#{user.nick} has joined Main channel, #{channel.users.length} user(s) online.")
-      icon = user.getIcon(request[:service])
-      user.icon = icon
-      user.save
-      session[:credential] = { :user => user.nick, :icon => user.icon }
+      session[:credential]
     end
 
     def logout
