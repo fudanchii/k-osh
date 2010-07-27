@@ -2,7 +2,7 @@ module KaruiOshaberi
   class None < Service
 
     def auth
-      "ok"
+      Ramaze::Current.session["login_status"] = "ok"
     end
 
     def getIcon

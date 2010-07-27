@@ -47,8 +47,6 @@ module KaruiOshaberi
     def talk
       return "noinput" if request[:cmdtext].nil? or request[:cmdtext].strip == ""
       return "nologin" if session[:credential].nil?
-      user = User[:nick => session[:credential][:user]]
-      channel = Channel[user[:channel_id]]
       preproc = preprocess
       if preproc
         "ok"
@@ -68,7 +66,7 @@ module KaruiOshaberi
         token = /^\.([a-zA-Z]+) +(.+)$/.match(request[:cmdtext])
       end
       if token.nil?
-        token = /^\.([a-zA-Z]+) +(.+) +(.+)$/.match(request[:cmdtext])
+        token = /^\.([a-zA-Z]+) +(\S+) +(.+)$/.match(request[:cmdtext])
       end 
       if token.nil?
         di = Dialogue.create(:ct => request[:cmdtext], :time_stamp => Time.now)

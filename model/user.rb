@@ -7,9 +7,11 @@ module KaruiOshaberi
     def self.auth(user, pass, svc)
       service = KaruiOshaberi::ServicesProxy.new(svc)
       authuser = nil
+      puts service.inspect
       unless service.nil?
         service.credential user, pass
-        auth = service.auth
+        service.auth
+        puts Ramaze::Current.session["login_status"]
         if Ramaze::Current.session["login_status"] == "ok"
           authuser = User[:nick => user]
           if authuser.nil?

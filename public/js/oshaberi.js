@@ -12,13 +12,13 @@ function render_notification(data) {
 
 function render_chat(data) {
     cont = $("<div></div>").addClass('ch-container');
-    icon = $("<span></span>").addClass('icon');
+    icon = $("<div></div>").addClass('icon');
     icon.html('<img src="'+data.icon+'"/>');
-    icon.appendTo(cont);
-    p = $("<span></span>").addClass('chat');
+    p = $("<div></div>").addClass('chat');
     p.text(data.ct);
     $('<h4></h4>').html(data.user).prependTo(p);
-    p.appendTo(cont);
+    icon.prependTo(p);
+    p.prependTo(cont);
     cont.prependTo("#chat-container");
 }
 

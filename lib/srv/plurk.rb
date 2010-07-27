@@ -1,34 +1,24 @@
+require 'cgi'
+require 'net/http'
 require 'net/https'
 
 module KaruiOshaberi
   class Plurk < Service
     
     @@api_key = "RxeV3pAOSRW9X77OEjMXbf5CCUmiOmK4";
-    @@url = "www.plurk.com/API"
+    @@url = "www.plurk.com"
     @@icon_url = "http://avatars.plurk.com"
     
     def auth
       result = nil
-      furl = http(@@url, true)+ "/Users/login" + 
-      "?api_key=#{@@api_key}&username=#{@username}&password=#{@password}&no_data=1"
-
-#      uri = URI.parse("https://www.plurk.com")
-#      req = Net::HTTP.new(uri.host, uri.port)
-#      req.use_ssl = true
-#      req.verify_mode = OpenSSL::SSL::VERIFY_NONE
-#      response = req.get(furl)
-#      result = response.body if response == Net::HTTPOK
-
-      request = EventMachine::HttpRequest.new(furl).get
-      Ramaze::Current.session["login_status"] = "wait"
-      request.errback { Ramaze::Current.session["login_status"] = "error"}
-      request.callback {
-        unless request.response_header.status >= 400
-          Ramaze::Current.session["login_status"] = "ok"
-        else
-          Ramaze::Current.session["login_status"] = "error"
-        end
-      }
+      http = Net::HTTP.new(@@url, 443)
+      http.use_ssl = true
+      params = { "api_key" => @@api_key, "username" => @username, "password" => @password }
+      params = Hash[*params.collect{|k, v| [k.to_s, v]}.flatten]
+      request = Net::HTTP::Post.new("/API/Users/login",{})
+      request.set_form_data(params)
+      response = http.start { |req| req.request(request) }
+      Ramaze::Current.session["login_status"] = "ok" if Net::HTTPSuccess or Net::HTTPRedirection
     end
 
     def getIcon
@@ -38,7 +28,7 @@ module KaruiOshaberi
 
     private
     def setIcon
-      furl = http(@@url) + "/Profile/getPublicProfile"+
+      furl = http(@@url) + "/API/Profile/getPublicProfile"+
       "?api_key=#{@@api_key}&user_id=#{@username}"
       request = EventMachine::HttpRequest.new(furl).get
       request.callback {
