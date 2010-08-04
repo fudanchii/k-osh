@@ -6,3 +6,4 @@ sqlite3-ruby
 json
 eventmachine
 em-http-request
+oauth
