@@ -142,7 +142,7 @@ input#passwd {
 input#submit {
   height: 24px;
   width: 64px;
-  background-image: url('/img/tile-blue.jpg');
+  background-image: url('/img/tile-grey.jpg');
   background-repeat: repeat-x; 
   border: 0.6px solid blue;
   -moz-border-radius: 10px;
