@@ -5,7 +5,9 @@ require 'oauth/consumer'
 module KaruiOshaberi
   class Twitter < Service
     
-    APIURL = ENV["APIGEE_TWITTER_API_ENDPOINT"] || "api.twitter.com"
+    #apigee has problems  with their ssl certificate
+    #APIURL = ENV["APIGEE_TWITTER_API_ENDPOINT"] || "api.twitter.com"
+    APIURL = "api.twitter.com"
 
     @@url = {:futsuu => "http://"+APIURL,
              :secure => "https://"+APIURL }
