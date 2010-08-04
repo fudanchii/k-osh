@@ -21,8 +21,8 @@ module KaruiOshaberi
         if Ramaze::Current.session["login_status"] == "ok"
           authuser = User[:nick => user]
           if authuser.nil?
-            icon = service.icon
-            authuser = User.create(:nick => user, :icon => icon)
+            authuser = User.create(:nick => user)
+            authuser.icon = service.icon
           end
         end
       end

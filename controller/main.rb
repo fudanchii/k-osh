@@ -45,13 +45,15 @@ module KaruiOshaberi
       redirect '/' if session[:credential].nil?
       user = User[:nick => session[:credential][:user]]
       channel = Channel[user.channel_id]
-      channel.remove_user(user)
+      unless channel.nil?
+        channel.remove_user(user)
+      end
       inotify(channel, "all", "#{user.nick} has left, #{channel.users.length} user(s) online.")
       session.clear
       redirect '/'
     end
 
-    def oauthcallback
+    def oauthcallback(service)
       request_token = session["request_token"]
       unless request_token.nil?
         access = request_token.get_access_token({:oauth_verifier => request["oauth_verifier"]})
@@ -60,7 +62,7 @@ module KaruiOshaberi
         user = User[:nick => access.params["screen_name"]]
         if user.nil?
           user = User.create(:nick => access.params["screen_name"])
-          user.icon = user.getIcon user.nick, "twitter"
+          user.icon = user.getIcon user.nick, service
           user.save
           channel = Channel[:name => "Main"]
           channel.add_user user
