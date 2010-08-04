@@ -144,7 +144,7 @@ input#submit {
   width: 64px;
   background-image: url('/img/tile-grey.jpg');
   background-repeat: repeat-x; 
-  border: 0.6px solid blue;
+  border: 0.6px solid gray;
   -moz-border-radius: 10px;
 }
 

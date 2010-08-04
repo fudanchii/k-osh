@@ -28,9 +28,7 @@ module KaruiOshaberi
     def login
       redirect '/' unless @inside_index
       user = User.auth(request[:nick], request[:passwd], request[:service])
-      puts user.inspect
       if user == "redirect"
-        puts session["request_token"].inspect  
         redirect session["request_token"].authorize_url 
       end
       unless user.nil?

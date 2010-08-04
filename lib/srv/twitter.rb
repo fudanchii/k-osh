@@ -23,9 +23,8 @@ module KaruiOshaberi
        :request_token_path => "/oauth/request_token",
        :access_token_path => "/oauth/access_token",
        :authorize_path => "/oauth/authenticate",
-       :oauth_callback => "http://localhost:7000/oauthcallback"
       })
-      Ramaze::Current.session["request_token"] = consumer.get_request_token({:oauth_callback => "http://localhost:7000/oauthcallback"})
+      Ramaze::Current.session["request_token"] = consumer.get_request_token({:oauth_callback => "https://k-osh.heroku.com/oauthcallback"})
       #Innate::Helper::Redirect.redirect Ramaze::Current.session["request_token"].authorize_url
       Ramaze::Current.session["login_status"] = "redirect"
     end
