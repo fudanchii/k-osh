@@ -1,5 +1,3 @@
-require 'cgi'
-require 'net/http'
 require 'net/https'
 
 module KaruiOshaberi

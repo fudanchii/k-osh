@@ -4,14 +4,20 @@ module KaruiOshaberi
     one_to_many :dialogues
     many_to_one :channels
 
+    def getIcon(user, svc)
+      service = KaruiOshaberi::ServicesProxy.new(svc)
+      service.credential user
+      return service.icon
+    end
+
     def self.auth(user, pass, svc)
       service = KaruiOshaberi::ServicesProxy.new(svc)
-      authuser = nil
-      puts service.inspect
       unless service.nil?
         service.credential user, pass
         service.auth
-        puts Ramaze::Current.session["login_status"]
+        if Ramaze::Current.session["login_status"] == "redirect"
+          return "redirect"
+        end
         if Ramaze::Current.session["login_status"] == "ok"
           authuser = User[:nick => user]
           if authuser.nil?

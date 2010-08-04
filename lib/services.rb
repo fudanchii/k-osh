@@ -9,7 +9,7 @@ module KaruiOshaberi
       @service = KaruiOshaberi::const_get(service.capitalize).new
     end
 
-    def credential(u, p)
+    def credential(u, p= "")
       @service.username u
       @service.password p
     end
