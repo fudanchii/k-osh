@@ -7,7 +7,7 @@ module KaruiOshaberi
 
     def index
       @inside_index = true
-      @title = "かるい-おしゃべり"
+      @title = "K-OSH"
       @disabled = ""
       @nickform = a 'logout', r(:logout)
       if request.post? and !request[:nick].nil?

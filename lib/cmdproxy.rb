@@ -6,13 +6,8 @@ module KaruiOshaberi
     def delegate(meth, params)
       return unless method_exists? meth
       lp = @instance.method(meth).arity
-      return if params.length < lp
-      p = ""
-      lp.times do |i|
-        p << " params[#{i}]"
-        p << "," if i < lp - 1
-      end
-      eval("@instance.#{meth.to_s}#{p}")
+      return if params.length != lp
+			@instance.send(meth, *params)
     end
 
     def initialize
