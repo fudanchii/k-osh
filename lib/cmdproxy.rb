@@ -7,7 +7,7 @@ module KaruiOshaberi
       return unless method_exists? meth
       lp = @instance.method(meth).arity
       return if params.length != lp
-			@instance.send(meth, *params)
+      @instance.send(meth, *params)
     end
 
     def initialize
