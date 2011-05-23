@@ -16,7 +16,7 @@ module KaruiOshaberi
     end
 
     def channel_exists?(chan)
-      Channel[:name => chan]
+      !!(Channel[:name => chan])
     end
 
     def has_login?(nick)

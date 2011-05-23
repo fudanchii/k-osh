@@ -28,7 +28,7 @@ module KaruiOshaberi
       })
 
       Ramaze::Current.session["request_token"] = 
-      consumer.get_request_token({:oauth_callback => "https://k-osh.heroku.com/oauthcallback/twitter"})
+      consumer.get_request_token({:oauth_callback => Ramaze::Current.request.domain("/oauthcallback/twitter")})
 
       Ramaze::Current.session["login_status"] = "redirect"
     end

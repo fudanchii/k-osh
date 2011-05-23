@@ -73,7 +73,7 @@ module KaruiOshaberi
         channel = Channel[user[:channel_id]].add_dialogue(di)
       else
         cmd = KaruiOshaberi::CmdProxy.new
-        di = cmd.delegate token[1].downcase.to_sym, token[2..-1]
+        di = cmd.delegate(token[1].downcase.to_sym, token[2..-1])
       end
       if di
         user.add_dialogue(di)

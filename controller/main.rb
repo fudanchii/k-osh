@@ -10,7 +10,7 @@ module KaruiOshaberi
       @title = "K-OSH"
       @disabled = ""
       @nickform = a 'logout', r(:logout)
-      if request.post? and !request[:nick].nil?
+      if request.post? and !request[:nick].empty?
         unless has_login? request[:nick]
           unless login
             flash[:error] = "can not login"

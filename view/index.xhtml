@@ -2,10 +2,6 @@
   <div id="menu"></div>
   <div id="box">
     #{@nickform}
-    <div id="chatlog">
-    <ol id="chat-container">
-    </ol>
-    </div>
     <div id="inputbox">
        <form id="inputform">
        <input type="hidden" name="user" id="user" value ="#{@user}">
@@ -14,6 +10,10 @@
        <input type="submit" name="submit" id="submit" value="send"/>
        </form>
     </div>  
+    <div id="chatlog">
+    <ol id="chat-container">
+    </ol>
+    </div>
   </div>
 </div>
 <?r unless @errmsg.nil? ?>
